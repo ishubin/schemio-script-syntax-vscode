@@ -1,0 +1,25 @@
+{
+  "name": "schemioscript",
+  "displayName": "SchemioScript",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "sch",
+      "aliases": ["SchemioScript", "sch"],
+      "extensions": ["sch"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "sch",
+      "scopeName": "source.sch",
+      "path": "./syntaxes/sch.tmLanguage.json"
+    }]
+  }
+}

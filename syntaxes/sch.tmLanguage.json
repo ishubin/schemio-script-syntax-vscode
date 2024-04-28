@@ -1,0 +1,169 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "SchemioScript",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#strings-single"
+		},
+		{
+			"include": "#templated-strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#variable_assignment"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.sch",
+				"match": "\\b(if|while|for|struct|func)\\b"
+			}]
+		},
+		"strings-single": {
+			"name": "string.quoted.single.sch",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sch",
+					"match": "\\\\."
+				}
+			]
+		},
+		"templated-strings": {
+			"name": "string.quoted.templated.sch",
+			"begin": "`",
+			"end": "`",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sch",
+					"match": "\\\\."
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.sch",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sch",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.block.sch",
+					"begin": "(\\/\\*)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.definition.comment.sch"
+						}
+					},
+					"end": "(\\*\\/)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.definition.comment.sch"
+						}
+					}
+				},
+				{
+					"name": "comment.line.double-slash.sch",
+					"begin": "(\\/\\/)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.definition.comment.sch"
+						}
+					},
+					"end": "(?:\\n|$)"
+				}
+			]
+		},
+		"variable_assignment": {
+			"comment": "variable assignment",
+			"patterns": [
+				{
+					"comment": "variable assignment with =",
+					"match": "\\b[\\w\\.\\*]+(?:\\,\\s*[\\w\\.\\*]+)*(?=\\s*=(?!=))",
+					"captures": {
+						"0": {
+							"patterns": [
+								{
+									"include": "#delimiters"
+								},
+								{
+									"include": "#operators"
+								},
+								{
+									"match": "\\d\\w*",
+									"name": "invalid.illegal.identifier.sch"
+								},
+								{
+									"match": "\\w+",
+									"name": "variable.other.assignment.sch"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"operators": {
+			"comment": "Note that the order here is very important!",
+			"patterns": [
+				{
+					"match": "\\-\\-",
+					"name": "keyword.operator.decrement.sch"
+				},
+				{
+					"match": "\\+\\+",
+					"name": "keyword.operator.increment.sch"
+				},
+				{
+					"match": "(==|!=|<=|>=|<(?!<)|>(?!>))",
+					"name": "keyword.operator.comparison.sch"
+				},
+				{
+					"match": "(&&|\\|\\||!)",
+					"name": "keyword.operator.logical.sch"
+				},
+				{
+					"match": "(=|\\+=|\\-=||\\*=|/=)",
+					"name": "keyword.operator.assignment.sch"
+				},
+				{
+					"match": "(\\+|\\-|\\*|/|%)",
+					"name": "keyword.operator.arithmetic.sch"
+				}
+			]
+		},
+		"delimiters": {
+			"patterns": [
+				{
+					"match": "\\,",
+					"name": "punctuation.other.comma.sch"
+				},
+				{
+					"match": "\\.(?!\\.\\.)",
+					"name": "punctuation.other.period.sch"
+				},
+				{
+					"match": ":(?!=)",
+					"name": "punctuation.other.colon.sch"
+				}
+			]
+		}
+	},
+	"scopeName": "source.sch"
+}
